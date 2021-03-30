@@ -1,0 +1,12 @@
+{
+  "name": "blikblok",
+  "displayName": "blikblok",
+  "expo": {
+    "name": "blikblok",
+    "slug": "blikblok",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
