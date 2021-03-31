@@ -43,7 +43,7 @@ function MYVideo({navigation})
       volume={1.0}
       isMuted={false}
       resizeMode="cover"
-      //shouldPlay={play}
+      shouldPlay={true}
       isLooping
       style={{
         width: '100%',
