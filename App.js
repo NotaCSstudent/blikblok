@@ -1,13 +1,79 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import {StyleSheet, Button, View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Video, AVPlaybackStatus } from 'expo-av';
+
+
+
+
+function Home({navigation})
+{
+  return(
+  <View style={styles.container}>
+  <Text style={styles.baseText}>Login</Text>
+  <Button
+  
+  //font-color = "black"
+  title = "login"
+  onPress={() => navigation.navigate('MYVideo')}
+  />
+
+  <StatusBar style="auto" />
+  </View>
+  );
+
+}
+
+function MYVideo({navigation})
+{
+  const video = React.useRef(null);
+  const [status, setStatus] = React.useState({});
+  return(
+ 
+    <View style={styles.container}>
+    <Video
+      ref={video}
+      
+      source={{
+        uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+      }}
+      rate={1.0}
+      volume={1.0}
+      isMuted={false}
+      resizeMode="cover"
+      //shouldPlay={play}
+      isLooping
+      style={{
+        width: '100%',
+        height: '100%',}}
+    />
+    <View style={styles.buttons}>
+      <Button
+        title={status.isPlaying ? 'Pause' : 'Play'}
+        onPress={() =>
+          status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()
+        }
+      />
+    </View>
+  </View>
+
+  );
+
+}
+
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.baseText}>BlikBlok</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="BlikBlok" component = {Home}/>
+        <Stack.Screen name= "MYVideo" component = {MYVideo}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
