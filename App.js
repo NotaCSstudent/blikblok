@@ -1,9 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
-import * as React from 'react';
-import {StyleSheet, Button, View, Text } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import {StyleSheet, Button, View, Text , TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Video, AVPlaybackStatus } from 'expo-av';
+import { Camera,Permission,MediaLibrary } from 'expo-camera';
+
+
+
+
+
+
+
+
 
 
 
@@ -20,8 +29,15 @@ function Home({navigation})
   onPress={() => navigation.navigate('MYVideo')}
   />
 
-  <StatusBar style="auto" />
+
+  //<StatusBar style="auto" />
+  <Button
+  title = "peanut"
+
+
+  />
   </View>
+  
   );
 
 }
@@ -67,6 +83,30 @@ function MYVideo({navigation})
 const Stack = createStackNavigator();
 
 export default function App() {
+  
+  const [hasPermission,setHasPermission] = useState(null);
+  const [cameraRef,setCameraRef] = useState(null);
+  const [type,setType] = useState(Camera.Constants.Type.back);
+  
+  
+useEffect(() => {
+  (async () => {
+    const { status } = await Camera.requestPermissionsAsync();
+    setHasPermission(status === 'granted');
+  })();
+}, []);
+  if(hasPermission === false)
+  {
+    return (<Text>I can't see ur camera</Text>)
+  }
+  
+  
+  
+  
+  
+  
+  
+  
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
